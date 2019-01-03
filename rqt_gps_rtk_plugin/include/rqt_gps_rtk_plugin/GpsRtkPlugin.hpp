@@ -2,24 +2,14 @@
 #define GPSRTKPLUGIN_H
 
 #include <rqt_gui_cpp/plugin.h>
-
-// Qt
+#include <ui_gps_rtk_plugin.h>
 #include <QWidget>
-#include <QString>
 
-// ui
-#include <rqt_gps_rtk_plugin/ui_gps_rtk_plugin.h>
-
-// std
 #include <algorithm>
 #include <unistd.h>
-#include <memory>
 
-// ros
 #include <ros/ros.h>
-
-// messages
-#include <piksi_rtk_msgs/ReceiverState_V2_3_15.h>
+#include <piksi_rtk_msgs/ReceiverState_V2_2_15.h>
 #include <piksi_rtk_msgs/BaselineNed.h>
 #include <piksi_rtk_msgs/InfoWifiCorrections.h>
 #include <piksi_rtk_msgs/UtcTimeMulti.h>
@@ -28,23 +18,9 @@
 
 constexpr double kSignalStrengthScalingFactor = 4.0;
 
-struct TimeStamps {
-  double receiverStateStamp_;
-  double baselineNedStamp_;
-  double wifiCorrectionsStamp_;
-  double navsatfixRtkFixStamp_;
-
-  void setGlobalStamp(double stamp) {
-    receiverStateStamp_ = stamp;
-    baselineNedStamp_ = stamp;
-    wifiCorrectionsStamp_ = stamp;
-    navsatfixRtkFixStamp_ = stamp;
-  }
-};
-
 class GpsRtkPlugin : public rqt_gui_cpp::Plugin
 {
-Q_OBJECT
+  Q_OBJECT
  public:
   GpsRtkPlugin();
   virtual void initPlugin(qt_gui_cpp::PluginContext& context);
@@ -83,8 +59,6 @@ Q_OBJECT
     return scaled_signal_strength;
   }
 
-  void timerCallback(const ros::TimerEvent& e);
-
   //subscribers
   ros::Subscriber piksiReceiverStateSub_;
   ros::Subscriber piksiBaselineNedSub_;
@@ -93,7 +67,7 @@ Q_OBJECT
   ros::Subscriber piksiHeartbeatSub_;
   ros::Subscriber piksiAgeOfCorrectionsSub_;
 
-  void piksiReceiverStateCb(const piksi_rtk_msgs::ReceiverState_V2_3_15& msg);
+  void piksiReceiverStateCb(const piksi_rtk_msgs::ReceiverState_V2_2_15& msg);
   void piksiBaselineNedCb(const piksi_rtk_msgs::BaselineNed& msg);
   void piksiWifiCorrectionsCb(const piksi_rtk_msgs::InfoWifiCorrections& msg);
   void piksiNavsatfixRtkFixCb(const sensor_msgs::NavSatFix& msg);
@@ -111,10 +85,6 @@ Q_OBJECT
   int wifiCorrectionsAvgHz_;
   int numCorrectionsFirstSampleMovingWindow_;
   std::vector<double> altitudes_;
-  ros::Timer timer_;
-  TimeStamps lastMsgStamps_;
-  // The max allowed timeout [s] before GUI information is updated with "N/A"
-  double maxTimeout_;
 };
 
 #endif // GPSRTKPLUGIN_H
