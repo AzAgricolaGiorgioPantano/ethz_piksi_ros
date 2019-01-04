@@ -24,7 +24,7 @@ from sbp.system import *
 from sbp.tracking import *  # WARNING: tracking is part of the draft messages, could be removed in future releases of libsbp.
 from sbp.piksi import *  # WARNING: piksi is part of the draft messages, could be removed in future releases of libsbp.
 from sbp.observation import SBP_MSG_OBS, SBP_MSG_OBS_DEP_A, SBP_MSG_OBS_DEP_B, SBP_MSG_BASE_POS_LLH, \
-    SBP_MSG_BASE_POS_ECEF
+    SBP_MSG_BASE_POS_ECEF, SBP_MSG_MEASUREMENT_STATE
 import sbp.version
 # networking stuff
 import UdpHelpers

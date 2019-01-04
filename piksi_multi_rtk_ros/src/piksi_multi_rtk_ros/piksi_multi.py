@@ -28,7 +28,7 @@ from sbp.client import Handler, Framer
 from sbp.navigation import *
 from sbp.logging import *
 from sbp.system import *
-from sbp.tracking import *  # WARNING: tracking is part of the draft messages, could be removed in future releases of libsbp.
+from sbp.tracking import * # WARNING: tracking is part of the draft messages, could be removed in future releases of libsbp.
 from sbp.piksi import *  # WARNING: piksi is part of the draft messages, could be removed in future releases of libsbp.
 from sbp.observation import *
 from sbp.orientation import *  # WARNING: orientation messages are still draft messages.
@@ -202,7 +202,7 @@ class PiksiMulti:
         self.handler.add_callback(self.cb_sbp_obs, msg_type=SBP_MSG_OBS)
         self.handler.add_callback(self.cb_sbp_settings_read_by_index_resp, msg_type=SBP_MSG_SETTINGS_READ_BY_INDEX_RESP)
         self.handler.add_callback(self.cb_settings_read_resp, msg_type=SBP_MSG_SETTINGS_READ_RESP)
-#        self.handler.add_callback(self.cb_sbp_measurement_state, msg_type=SBP_MSG_MEASUREMENT_STATE)
+        self.handler.add_callback(self.cb_sbp_measurement_state, msg_type=SBP_MSG_MEASUREMENT_STATE)
         self.handler.add_callback(self.cb_sbp_uart_state, msg_type=SBP_MSG_UART_STATE)
 
         # Callbacks generated "automatically".
